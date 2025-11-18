@@ -1,0 +1,60 @@
+<div class="min-h-screen bg-white text-slate-900">
+  <div class="mx-auto max-w-3xl px-4 py-12">
+    <div class="space-y-2">
+      <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Publier une annonce</p>
+      <h1 class="text-3xl font-semibold text-slate-900">Ajoute un article</h1>
+      <p class="text-slate-600 text-sm">Catégorie obligatoire, état et prix requis. Photos optionnelles (URLs séparées par des virgules pour l’instant).</p>
+    </div>
+
+    <form class="mt-8 space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-lg shadow-black/5" [formGroup]="form" (ngSubmit)="submit()">
+      <div class="space-y-1">
+        <label class="text-sm font-medium text-slate-800">Titre</label>
+        <input class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-orange-400/80 focus:outline-none" formControlName="title" />
+      </div>
+      <div class="space-y-1">
+        <label class="text-sm font-medium text-slate-800">Description</label>
+        <textarea class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-orange-400/80 focus:outline-none" rows="4" formControlName="description"></textarea>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div class="space-y-1">
+          <label class="text-sm font-medium text-slate-800">Prix (FCFA)</label>
+          <input type="number" class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-orange-400/80 focus:outline-none" formControlName="price" />
+        </div>
+        <div class="space-y-1">
+          <label class="text-sm font-medium text-slate-800">Localisation</label>
+          <input class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-orange-400/80 focus:outline-none" formControlName="location" placeholder="Abidjan, Yopougon..." />
+        </div>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div class="space-y-1">
+          <label class="text-sm font-medium text-slate-800">Catégorie</label>
+          <select class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 focus:border-orange-400/80 focus:outline-none" formControlName="categoryId">
+            <option value="">Sélectionne</option>
+            <option *ngFor="let cat of (categories$ | async)" [value]="cat.id">{{ cat.name }}</option>
+          </select>
+        </div>
+        <div class="space-y-1">
+          <label class="text-sm font-medium text-slate-800">État</label>
+          <select class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 focus:border-orange-400/80 focus:outline-none" formControlName="condition">
+            <option value="neuf">Neuf</option>
+            <option value="occasion">Occasion</option>
+          </select>
+        </div>
+      </div>
+      <div class="space-y-1">
+        <label class="text-sm font-medium text-slate-800">Photos (upload vers Firebase Storage)</label>
+        <input type="file" multiple class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 focus:border-orange-400/80 focus:outline-none" (change)="onFilesSelected($event)" />
+        <p class="text-xs text-slate-500">Formats images, max ~ plusieurs Mo (limite Firebase par défaut).</p>
+        <p class="text-xs text-slate-600" *ngIf="selectedFiles.length">Sélectionné : {{ selectedFiles.length }} fichier(s)</p>
+      </div>
+
+      <button type="submit" class="flex w-full items-center justify-center rounded-full bg-gradient-to-r from-amber-400 via-orange-500 to-fuchsia-600 px-4 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-orange-500/30 transition hover:translate-y-[-1px]" [disabled]="loading()">
+        {{ loading() ? 'Publication...' : 'Publier' }}
+      </button>
+
+      <div *ngIf="error()" class="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+        {{ error() }}
+      </div>
+    </form>
+  </div>
+</div>

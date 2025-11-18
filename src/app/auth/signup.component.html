@@ -1,0 +1,87 @@
+<div class="min-h-screen bg-white text-slate-900">
+  <div class="mx-auto flex min-h-screen max-w-5xl flex-col justify-center gap-12 px-4 py-12 lg:flex-row lg:items-center">
+    <div class="space-y-4 lg:w-1/2">
+      <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Création de compte</p>
+      <h1 class="text-3xl font-semibold text-slate-900 sm:text-4xl">Rejoins AfroDeal</h1>
+      <p class="text-slate-600">Publie tes annonces, discute en direct et mets ton profil en avant.</p>
+      <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+        <p class="font-semibold text-slate-900">Tu es pro ?</p>
+        <p class="mt-1">Choisis “Pro” pour débloquer vitrine, stats et boosts plus tard.</p>
+      </div>
+    </div>
+
+    <div class="w-full max-w-md space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-lg shadow-black/5">
+      <form class="space-y-4" [formGroup]="form" (ngSubmit)="submit()">
+        <div class="space-y-1">
+          <label class="text-sm font-medium text-slate-800">Nom / Pseudonyme</label>
+          <input
+            class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-orange-400/80 focus:outline-none"
+            type="text"
+            formControlName="displayName"
+            placeholder="Ex: Koffi Auto"
+          />
+        </div>
+        <div class="space-y-1">
+          <label class="text-sm font-medium text-slate-800">Email</label>
+          <input
+            class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-orange-400/80 focus:outline-none"
+            type="email"
+            formControlName="email"
+            placeholder="toi@exemple.ci"
+          />
+        </div>
+        <div class="space-y-1">
+          <label class="text-sm font-medium text-slate-800">Profil</label>
+          <select
+            class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 focus:border-orange-400/80 focus:outline-none"
+            formControlName="role"
+          >
+            <option value="particulier">Particulier</option>
+            <option value="pro">Professionnel</option>
+          </select>
+        </div>
+        <div class="space-y-1">
+          <label class="text-sm font-medium text-slate-800">Mot de passe</label>
+          <input
+            class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-orange-400/80 focus:outline-none"
+            type="password"
+            formControlName="password"
+            placeholder="••••••••"
+          />
+        </div>
+        <button
+          type="submit"
+          class="flex w-full items-center justify-center rounded-full bg-gradient-to-r from-amber-400 via-orange-500 to-fuchsia-600 px-4 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-orange-500/30 transition hover:translate-y-[-1px]"
+          [disabled]="loading()"
+        >
+          {{ loading() ? 'Création...' : 'Créer un compte' }}
+        </button>
+      </form>
+
+      <div class="flex items-center gap-3 text-xs text-slate-500">
+        <div class="h-px flex-1 bg-slate-200"></div>
+        <span>ou</span>
+        <div class="h-px flex-1 bg-slate-200"></div>
+      </div>
+
+      <button
+        type="button"
+        class="flex w-full items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-800 transition hover:border-orange-400/80"
+        (click)="signupWithGoogle()"
+        [disabled]="loading()"
+      >
+        <span class="text-lg">🔐</span>
+        Continuer avec Google
+      </button>
+
+      <div *ngIf="error()" class="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+        {{ error() }}
+      </div>
+
+      <p class="text-sm text-slate-600">
+        Déjà un compte ?
+        <a class="font-semibold text-orange-700 hover:underline" routerLink="/login">Se connecter</a>
+      </p>
+    </div>
+  </div>
+</div>

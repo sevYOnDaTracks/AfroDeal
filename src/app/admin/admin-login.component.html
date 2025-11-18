@@ -1,0 +1,48 @@
+<div class="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center px-4">
+  <div class="w-full max-w-md space-y-6 rounded-2xl border border-slate-800 bg-slate-900/80 p-8 shadow-2xl shadow-black/50 backdrop-blur">
+    <div class="flex items-center gap-3">
+      <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 via-orange-500 to-fuchsia-600 text-lg font-semibold text-slate-950 shadow-lg shadow-orange-500/30">
+        AD
+      </div>
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-200/80">AfroDeal Console</p>
+        <p class="text-xs text-slate-300/80">Admin only</p>
+      </div>
+    </div>
+    <div>
+      <h1 class="text-2xl font-semibold text-white">Connexion administrateur</h1>
+      <p class="text-sm text-slate-400">admin@afrodeal.com / Admin</p>
+    </div>
+
+    <form class="space-y-4" [formGroup]="form" (ngSubmit)="submit()">
+      <div class="space-y-1">
+        <label class="text-sm font-medium text-slate-200">Email</label>
+        <input
+          class="w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:border-orange-400/80 focus:outline-none"
+          type="email"
+          formControlName="email"
+          placeholder="admin@afrodeal.com"
+        />
+      </div>
+      <div class="space-y-1">
+        <label class="text-sm font-medium text-slate-200">Mot de passe</label>
+        <input
+          class="w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:border-orange-400/80 focus:outline-none"
+          type="password"
+          formControlName="password"
+          placeholder="Admin"
+        />
+      </div>
+      <button
+        type="submit"
+        class="w-full rounded-full bg-gradient-to-r from-amber-400 via-orange-500 to-fuchsia-600 px-4 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-orange-500/30 transition hover:translate-y-[-1px]"
+      >
+        Se connecter
+      </button>
+    </form>
+
+    <div *ngIf="error()" class="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-100">
+      {{ error() }}
+    </div>
+  </div>
+</div>

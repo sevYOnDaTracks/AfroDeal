@@ -1,0 +1,64 @@
+<div class="min-h-screen bg-white text-slate-900">
+  <div class="mx-auto flex min-h-screen max-w-5xl flex-col justify-center gap-10 px-4 py-12">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Premier pas</p>
+        <h1 class="text-3xl font-semibold text-slate-900 sm:text-4xl">Complète ton profil</h1>
+        <p class="text-slate-600">Ces infos sont nécessaires pour publier et rassurer les acheteurs.</p>
+      </div>
+      <button class="text-sm font-semibold text-orange-700 hover:underline" (click)="logout()">Changer de compte</button>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+      <form class="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-lg shadow-black/5" [formGroup]="form" (ngSubmit)="submit()">
+        <div class="space-y-1">
+          <label class="text-sm font-medium text-slate-800">Nom / Pseudonyme</label>
+          <input
+            class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-orange-400/80 focus:outline-none"
+            type="text"
+            formControlName="displayName"
+            placeholder="Ex: Koffi Auto"
+          />
+        </div>
+        <div class="space-y-1">
+          <label class="text-sm font-medium text-slate-800">Profil</label>
+          <select
+            class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 focus:border-orange-400/80 focus:outline-none"
+            formControlName="role"
+          >
+            <option value="particulier">Particulier</option>
+            <option value="pro">Professionnel</option>
+          </select>
+        </div>
+        <div class="space-y-1">
+          <label class="text-sm font-medium text-slate-800">Téléphone (optionnel pour recevoir des leads)</label>
+          <input
+            class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-orange-400/80 focus:outline-none"
+            type="tel"
+            formControlName="phoneNumber"
+            placeholder="+225 ..."
+          />
+        </div>
+        <button
+          type="submit"
+          class="flex w-full items-center justify-center rounded-full bg-gradient-to-r from-amber-400 via-orange-500 to-fuchsia-600 px-4 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-orange-500/30 transition hover:translate-y-[-1px]"
+          [disabled]="loading()"
+        >
+          {{ loading() ? 'Enregistrement...' : 'Enregistrer et continuer' }}
+        </button>
+        <div *ngIf="error()" class="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          {{ error() }}
+        </div>
+      </form>
+
+      <div class="space-y-4 rounded-2xl border border-slate-200 bg-slate-50 p-6 text-sm text-slate-700">
+        <p class="font-semibold text-slate-900">Pourquoi ces infos ?</p>
+        <ul class="mt-2 list-disc space-y-2 pl-4">
+          <li>Afficher un nom rassure les acheteurs et réduit les arnaques.</li>
+          <li>Le rôle “Pro” débloquera vitrine, stats et boosts.</li>
+          <li>Le téléphone aide à recevoir rapidement des leads (SMS/appels).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
